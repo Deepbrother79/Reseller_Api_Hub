@@ -7,13 +7,12 @@ import ApiEndpointsPanel from '@/components/ApiEndpointsPanel';
 import TransactionList from '@/components/TransactionList';
 import RefundForm from '@/components/RefundForm';
 import CategoryFilter from '@/components/CategoryFilter';
-import { NotificationPopup } from '@/components/NotificationPopup';
 import FAQ from '@/components/FAQ';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Bell, HelpCircle } from 'lucide-react';
+import { HelpCircle } from 'lucide-react';
 
 interface Product {
   id: string;
@@ -229,8 +228,6 @@ const Index = () => {
   // State for tracking which products have updated quantities
   const [updatedProductIds, setUpdatedProductIds] = useState<Set<string>>(new Set());
   
-  // State for notification popup visibility
-  const [showNotifications, setShowNotifications] = useState(false);
   const [showFAQ, setShowFAQ] = useState(false);
 
   // Subscribe to realtime updates for products quantity
@@ -631,7 +628,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
-      <NotificationPopup forceVisible={showNotifications} onClose={() => setShowNotifications(false)} />
       <div className="max-w-6xl mx-auto">
         <div className="mb-8">
           {/* Header with title and buttons */}
@@ -646,23 +642,11 @@ const Index = () => {
             {/* Navigation buttons */}
             <div className="flex flex-wrap justify-center lg:justify-end gap-2 lg:gap-3">
               <Button 
-                onClick={() => setShowNotifications(true)}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 lg:px-4 lg:py-3 text-sm lg:text-base"
-              >
-                📰 News
-              </Button>
-              <Button 
                 onClick={() => setShowFAQ(true)}
                 className="bg-purple-600 hover:bg-purple-700 text-white px-3 py-2 lg:px-4 lg:py-3 text-sm lg:text-base flex items-center gap-2"
               >
                 <HelpCircle className="h-4 w-4" />
                 <span className="hidden sm:inline">FAQ</span>
-              </Button>
-              <Button 
-                onClick={() => window.open('https://pay.accshub.org/', '_blank')}
-                className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 lg:px-6 lg:py-3 text-sm lg:text-base"
-              >
-                Buy Tokens
               </Button>
               <Button 
                 onClick={() => window.location.href = '/services-utils'}
@@ -778,7 +762,6 @@ const Index = () => {
                     <TableHead>ID</TableHead>
                     <TableHead>Name</TableHead>
                     <TableHead>Quantity</TableHead>
-                    <TableHead>Value USD (Credits Master)</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -813,15 +796,6 @@ const Index = () => {
                                 : 'bg-red-100 text-red-800'
                         }`}>
                           {product.quantity === null ? 'N/A' : product.quantity}
-                        </span>
-                      </TableCell>
-                      <TableCell 
-                        className="cursor-pointer hover:opacity-80 transition-opacity" 
-                        onClick={() => handleProductClick(product.id)}
-                        title="Click to select this product"
-                      >
-                        <span className="px-2 py-1 rounded text-sm bg-blue-100 text-blue-800">
-                          {product.value?.toFixed(4) || '1.0000'}
                         </span>
                       </TableCell>
                     </TableRow>

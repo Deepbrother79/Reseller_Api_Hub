@@ -219,12 +219,6 @@ const ServicesUtils = () => {
             </Link>
             <div className="flex items-center gap-2">
               <Button 
-                onClick={() => window.open('https://pay.accshub.org/', '_blank')}
-                className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 md:px-4 md:py-2 text-sm md:text-base"
-              >
-                Buy Tokens
-              </Button>
-              <Button 
                 onClick={() => setShowFAQ(true)}
                 className="bg-purple-600 hover:bg-purple-700 text-white px-3 py-2 md:px-4 md:py-2 text-sm md:text-base flex items-center gap-2"
               >
